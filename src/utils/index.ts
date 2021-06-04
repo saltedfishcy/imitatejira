@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-export const isVoid = (value) =>
+export const isVoid = (value: unknown) =>
   value === undefined || value === null || value === "";
 
-export const cleanObject = (object) => {
+export const cleanObject = (object: object) => {
   if (!object) {
     return {};
   }
@@ -16,14 +16,14 @@ export const cleanObject = (object) => {
   return result;
 };
 
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: unknown, delay?: number):any => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
