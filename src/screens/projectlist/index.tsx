@@ -4,6 +4,7 @@ import { List } from './list';
 import { useEffect, useState} from 'react';
 import { cleanObject, useMount, useDebounce } from '../../utils';
 import * as qs from 'qs';
+import { Test } from './test';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -36,7 +37,8 @@ export const ProjectListScreen = () => {
   })
 
   return <div>
-    <SearchPanel users={users} param={param} setParam={setParam} ></SearchPanel>
-    <List users={users} list={list}></List>
+    <Test />
+    {/* <SearchPanel users={users} param={param} setParam={setParam} ></SearchPanel>
+    <List users={users} list={list}></List> */}
   </div>
 }
