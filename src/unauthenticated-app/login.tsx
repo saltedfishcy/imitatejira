@@ -4,17 +4,20 @@ import { cleanObject, useMount, useDebounce } from '../utils';
 import { useAuth } from '../context/auth.context'
 import {Form, Input, Button} from 'antd';
 import { LongButton } from './index'
+import { useAsync } from '../utils/use-async';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
-export const LoginScreen = () => {
+export const LoginScreen = ({onError}:{onError:(error: Error)=> void}) => {
 
   const { login, user } = useAuth();
+  const { run, isLoading } = useAsync();
 
 
   const handleSubmit = (values: {username: string, password: string}) => {
-    login(values)
-    console.log(111)
+    run(login(values).catch((e) => {
+      onError(e)
+    }))
   }
   return <Form onFinish={handleSubmit}>
     {
@@ -34,7 +37,7 @@ export const LoginScreen = () => {
       <Input type="password" placeholder='密码' />
     </Form.Item>
     <Form.Item>
-      <LongButton type={'primary'} htmlType="submit">登录</LongButton>
+      <LongButton loading={isLoading} type={'primary'} htmlType="submit">登录</LongButton>
     </Form.Item>
   </Form>
 }

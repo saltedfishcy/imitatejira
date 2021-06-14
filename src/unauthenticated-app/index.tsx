@@ -1,7 +1,7 @@
 import React,{ useState } from "react";
 import { RegisterScreen } from './register'
 import { LoginScreen } from './login'
-import { Card, Divider, Button } from 'antd'
+import { Card, Divider, Button, Typography } from 'antd'
 import styled from '@emotion/styled'
 import logo from '../assets/logo.svg'
 import left from '../assets/left.svg'
@@ -11,16 +11,24 @@ import right from '../assets/right.svg'
 
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsregister] = useState(false);
+  const [errors,setError] = useState<Error | null>(null);
+
   return <Container>
     <Header />
     <Background />
+    <Button 
+      onClick={()=> {throw new Error('咩屎')}}
+    >抛出异常</Button>
     <ShadowCard>
       <Title>{isRegister ? "请注册" : "请登录"}</Title>
       {
-        isRegister ? <RegisterScreen></RegisterScreen>: <LoginScreen></LoginScreen>
+        errors? <Typography.Text type={"danger"}>{errors.message}</Typography.Text>:null
+      }
+      {
+        isRegister ? <RegisterScreen onError={setError}></RegisterScreen>: <LoginScreen onError={setError}></LoginScreen>
       }
       <Divider />
-      <a onClick={() => setIsregister(!isRegister)} >切换到{isRegister? '已经有账号了？直接登录': '没有账号，注册新账号'}</a>
+      <Button type={'link'} onClick={() => setIsregister(!isRegister)} >切换到{isRegister? '已经有账号了？直接登录': '没有账号，注册新账号'}</Button>
     </ShadowCard>
     
   </Container>

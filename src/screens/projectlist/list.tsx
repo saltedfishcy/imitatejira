@@ -2,21 +2,21 @@ import React from 'react'
 import { User } from './searchpanel'
 import { Table } from 'antd'
 import dayjs from 'dayjs';
+import { TableProps } from 'antd/es/table'
 
-interface projectProps {
+export interface projectProps {
   id: string,
   name: string,
   personId: string,
   pin: boolean,
   organization: string,
-  created: number
+  created: number,
 }
-interface ListProps {
-  list: projectProps[],
-  users: User[]
+interface ListProps extends TableProps<projectProps> {
+  users: User[],
 }
 
-export const List = ({users, list}: ListProps) => {
+export const List = ({users, ...props}: ListProps) => {
   const columns = [
     {
       title: '名称',
@@ -42,5 +42,5 @@ export const List = ({users, list}: ListProps) => {
     }
 
   ]
-  return <Table pagination={false} columns={columns} dataSource={list} rowKey={(record => record.id)} />
+  return <Table  pagination={false} columns={columns}  rowKey={(record => record.id)} {...props}/>
 }

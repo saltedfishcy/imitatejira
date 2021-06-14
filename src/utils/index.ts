@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 export const isVoid = (value: unknown) =>
   value === undefined || value === null || value === "";
 
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   if (!object) {
     return {};
   }
