@@ -2,7 +2,7 @@ import React from 'react'
 import { SearchPanel } from './searchpanel';
 import { List } from './list';
 import { useEffect, useState} from 'react';
-import { cleanObject, useMount, useDebounce } from '../../utils';
+import { cleanObject, useMount, useDebounce, useDocument } from '../../utils';
 import * as qs from 'qs';
 import { Test } from './test';
 import { useHttp } from '../../utils/http';
@@ -17,7 +17,7 @@ const { Option } = Select;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const ProjectListScreen = () => {
-
+  useDocument('项目列表', false)
   // const [users, setUsers] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
   // const [error, setError] = useState<null | Error>(null)

@@ -6,12 +6,15 @@ import styled from '@emotion/styled'
 import logo from '../assets/logo.svg'
 import left from '../assets/left.svg'
 import right from '../assets/right.svg'
+import { useDocument } from '../utils'
 
 
 
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsregister] = useState(false);
   const [errors,setError] = useState<Error | null>(null);
+
+  useDocument('请登录/注册')
 
   return <Container>
     <Header />
