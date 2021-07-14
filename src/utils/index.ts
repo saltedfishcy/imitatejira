@@ -55,7 +55,10 @@ export const useArray = <T>(initValue: T[]) => {
 };
 
 export const useDocument = (title: string, keepOnUnmount: boolean=true) => {
-  const oldTitle = document.title;
+  // 页面加载时：oldTitle = 旧 title 'react app'
+  // 加载后：oldTitle = 新 title
+  // const oldTitle = document.title;
+  const oldTitle = useRef(document.title).current;   // 使用 useRef 获取到的值在整个生命周期都不会发生变化
 
   useEffect(() => {
     document.title = title
@@ -64,8 +67,9 @@ export const useDocument = (title: string, keepOnUnmount: boolean=true) => {
   useEffect(()=> {
     return () => {
       if(!keepOnUnmount) {
+        // 如果不指定依赖，读到的就是旧 title 对应文档
         document.title = oldTitle;
       }
     }
-  }, [])
+  }, [keepOnUnmount, oldTitle])
 }
